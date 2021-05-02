@@ -2,13 +2,14 @@ package br.com.paycontrol.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -30,6 +31,9 @@ public class Account implements Serializable
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
+	@OneToOne(mappedBy = "account")
+	private AverdueAccount averdueAccount;
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
 	private Instant created;
 	
@@ -40,11 +44,13 @@ public class Account implements Serializable
 		
 	}
 	
-	public Account(String barCode, Float price, Instant instant) 
+	public Account(String barCode, Float price, Instant instant, Client client, Company company) 
 	{
 		this.barcode = barCode;
 		this.price = price;
 		this.created = instant;
+		this.client = client;
+		this.company = company;
 	}
 
 	public Long getId() {
@@ -93,6 +99,14 @@ public class Account implements Serializable
 
 	public void setCreated(Instant instant) {
 		this.created = instant;
+	}
+
+	public AverdueAccount getAverdueAccount() {
+		return averdueAccount;
+	}
+
+	public void setAverdueAccount(AverdueAccount averdueAccount) {
+		this.averdueAccount = averdueAccount;
 	}
 
 	@Override

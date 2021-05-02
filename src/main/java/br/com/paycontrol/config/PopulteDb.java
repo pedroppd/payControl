@@ -2,16 +2,17 @@ package br.com.paycontrol.config;
 
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.paycontrol.domain.Account;
+import br.com.paycontrol.domain.AverdueAccount;
 import br.com.paycontrol.domain.Client;
 import br.com.paycontrol.domain.Company;
 import br.com.paycontrol.repository.AccountRepository;
+import br.com.paycontrol.repository.AverdueAccountRepository;
 import br.com.paycontrol.repository.ClientRepository;
 import br.com.paycontrol.repository.CompanyRepository;
 
@@ -27,14 +28,17 @@ public class PopulteDb implements CommandLineRunner{
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	public PopulteDb() {
+	@Autowired
+	private AverdueAccountRepository averdueAccountRepository;
+	
+	public PopulteDb() 
+	{
 		
 	}
 
 	@Override
 	public void run(String... args) throws Exception 
 	{
-		
 		//############## Company
 		Company comp1 = new Company("123456789987", "OI");
 		Company comp2 = new Company("123456789987", "CEDAE");
@@ -50,20 +54,17 @@ public class PopulteDb implements CommandLineRunner{
 		clientRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		//############### Account
-		Account ac1 = new Account("123456789987222", 50.00F, Instant.now());
-		Account ac2 = new Account("123456789987333", 100.00F, Instant.now());
-		Account ac3 = new Account("123456789987444", 200.00F, Instant.now());
-
-		ac1.setCompany(comp1);
-		ac2.setCompany(comp2);
-		ac3.setCompany(comp3);
-		
-		ac1.setClient(c1);
-		ac2.setClient(c2);
-		ac3.setClient(c3);
+		Account ac1 = new Account("123456789987222", 50.00F, Instant.now(), c1, comp1);
+		Account ac2 = new Account("123456789987333", 100.00F, Instant.now(), c2, comp2);
+		Account ac3 = new Account("123456789987444", 200.00F, Instant.now(), c3, comp3);
 		
 		accountRepository.saveAll(Arrays.asList(ac1, ac2, ac3));
-			
+		
+		//############### AverdueAccount
+		AverdueAccount av1 = new AverdueAccount(c3, ac3, Instant.now());
+		AverdueAccount av2 = new AverdueAccount(c2, ac2, Instant.now());
+		
+		averdueAccountRepository.saveAll(Arrays.asList(av1, av2));
 	}
 	
 

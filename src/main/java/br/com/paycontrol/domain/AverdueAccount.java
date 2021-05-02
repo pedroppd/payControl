@@ -1,6 +1,7 @@
 package br.com.paycontrol.domain;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class AverdueAccount implements Serializable {
@@ -23,25 +26,23 @@ public class AverdueAccount implements Serializable {
 	@JoinColumn(name = "client_id")
 	private Client client;
 	
-	@ManyToOne
-	@JoinColumn(name = "company_id")
-	private Company company;
-	
 	@OneToOne
 	@JoinColumn(name = "account_id")
 	private Account account;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
+	private Instant instant;
 	
 	public AverdueAccount() 
 	{
 		
 	}
 
-	public AverdueAccount(Long id, Client client, Company company, Account account) {
-		super();
-		this.id = id;
+	public AverdueAccount(Client client, Account account, Instant instant) 
+	{
 		this.client = client;
-		this.company = company;
 		this.account = account;
+		this.instant = instant;
 	}
 
 	public Long getId() {
@@ -63,17 +64,6 @@ public class AverdueAccount implements Serializable {
 		this.client = client;
 	}
 
-
-	public Company getCompany() {
-		return company;
-	}
-
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
-
 	public Account getAccount() {
 		return account;
 	}
@@ -85,8 +75,16 @@ public class AverdueAccount implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AverdueAccount [id=" + id + ", client=" + client + ", company=" + company + ", account=" + account
+		return "AverdueAccount [id=" + id + ", client=" + client + ", account=" + account
 				+ "]";
+	}
+	
+	public Instant getInstant() {
+		return instant;
+	}
+
+	public void setInstant(Instant instant) {
+		this.instant = instant;
 	}
 
 	@Override
@@ -95,7 +93,6 @@ public class AverdueAccount implements Serializable {
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		result = prime * result + ((client == null) ? 0 : client.hashCode());
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
@@ -118,11 +115,6 @@ public class AverdueAccount implements Serializable {
 			if (other.client != null)
 				return false;
 		} else if (!client.equals(other.client))
-			return false;
-		if (company == null) {
-			if (other.company != null)
-				return false;
-		} else if (!company.equals(other.company))
 			return false;
 		if (id == null) {
 			if (other.id != null)

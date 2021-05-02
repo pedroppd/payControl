@@ -36,6 +36,10 @@ public class Client implements Serializable
 	@OneToMany(mappedBy = "client")
 	private List<Account> accounts = new ArrayList<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private List<AverdueAccount> averdueAccounts = new ArrayList<>();
+	
 	public Client() 
 	{
 		
@@ -59,20 +63,29 @@ public class Client implements Serializable
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
-	public Instant getBirthDate() {
+	public Instant getBirthDate() 
+	{
 		return birthDate;
 	}
 
-	public void setBirthDate(Instant birthDate) {
+	public void setBirthDate(Instant birthDate) 
+	{
 		this.birthDate = birthDate;
 	}
 
-	public List<Account> getAccounts() {
+	public List<Account> getAccounts() 
+	{
 		return accounts;
+	}
+	
+	public List<AverdueAccount> getAverdueAccount()
+	{
+		return averdueAccounts;
 	}
 
 	@Override
