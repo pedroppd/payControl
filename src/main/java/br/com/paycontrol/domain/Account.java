@@ -2,6 +2,8 @@ package br.com.paycontrol.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +33,7 @@ public class Account implements Serializable
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	private AverdueAccount averdueAccount;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )

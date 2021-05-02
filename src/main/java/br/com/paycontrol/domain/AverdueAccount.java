@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,7 +28,7 @@ public class AverdueAccount implements Serializable {
 	private Client client;
 	
 	@OneToOne
-	@JoinColumn(name = "account_id")
+	@MapsId
 	private Account account;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )

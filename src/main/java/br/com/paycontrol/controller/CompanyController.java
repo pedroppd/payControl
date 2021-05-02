@@ -13,7 +13,7 @@ import br.com.paycontrol.domain.Company;
 import br.com.paycontrol.service.CompanyService;
 
 @RestController
-@RequestMapping(value = "/accounts")
+@RequestMapping(value = "/companys")
 public class CompanyController 
 {
 	

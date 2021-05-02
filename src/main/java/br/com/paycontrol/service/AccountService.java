@@ -40,6 +40,6 @@ public class AccountService implements PersistData<Account>{
 			return true;
 		}
 		
-		throw new IllegalArgumentException(String.format("The company '%s' is invalid", obj));
+		throw new IllegalArgumentException(String.format("The account '%s' is invalid", obj));
 	}
 }

@@ -64,7 +64,11 @@ public class PopulteDb implements CommandLineRunner{
 		AverdueAccount av1 = new AverdueAccount(c3, ac3, Instant.now());
 		AverdueAccount av2 = new AverdueAccount(c2, ac2, Instant.now());
 		
-		averdueAccountRepository.saveAll(Arrays.asList(av1, av2));
+		//For relation one to one the insertion need be so.
+		ac3.setAverdueAccount(av1);
+		ac2.setAverdueAccount(av2);
+		
+		accountRepository.saveAll(Arrays.asList(ac3, ac2));
 	}
 	
 
