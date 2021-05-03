@@ -7,12 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class AverdueAccount implements Serializable {
@@ -23,25 +22,22 @@ public class AverdueAccount implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
+	private Instant instant;
 	
 	@OneToOne
 	@MapsId
 	private Account account;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
-	private Instant instant;
+	
 	
 	public AverdueAccount() 
 	{
 		
 	}
 
-	public AverdueAccount(Client client, Account account, Instant instant) 
+	public AverdueAccount(Account account, Instant instant) 
 	{
-		this.client = client;
 		this.account = account;
 		this.instant = instant;
 	}
@@ -55,16 +51,6 @@ public class AverdueAccount implements Serializable {
 		this.id = id;
 	}
 
-
-	public Client getClient() {
-		return client;
-	}
-
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
 	public Account getAccount() {
 		return account;
 	}
@@ -76,8 +62,7 @@ public class AverdueAccount implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AverdueAccount [id=" + id + ", client=" + client + ", account=" + account
-				+ "]";
+		return "AverdueAccount [id=" + id + ", account=" + account + "]";
 	}
 	
 	public Instant getInstant() {
@@ -93,7 +78,6 @@ public class AverdueAccount implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
-		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
@@ -111,11 +95,6 @@ public class AverdueAccount implements Serializable {
 			if (other.account != null)
 				return false;
 		} else if (!account.equals(other.account))
-			return false;
-		if (client == null) {
-			if (other.client != null)
-				return false;
-		} else if (!client.equals(other.client))
 			return false;
 		if (id == null) {
 			if (other.id != null)

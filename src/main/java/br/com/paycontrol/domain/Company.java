@@ -24,7 +24,7 @@ public class Company implements Serializable {
 	
 	private String name;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "company")
 	private Set<Account> accounts = new HashSet<>();
 	
@@ -39,6 +39,7 @@ public class Company implements Serializable {
 		this.name = name;
 	}
 
+	@JsonIgnore
 	public Set<Account> getAccount()
 	{
 		return this.accounts;

@@ -28,9 +28,6 @@ public class PopulteDb implements CommandLineRunner{
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	@Autowired
-	private AverdueAccountRepository averdueAccountRepository;
-	
 	public PopulteDb() 
 	{
 		
@@ -61,8 +58,8 @@ public class PopulteDb implements CommandLineRunner{
 		accountRepository.saveAll(Arrays.asList(ac1, ac2, ac3));
 		
 		//############### AverdueAccount
-		AverdueAccount av1 = new AverdueAccount(c3, ac3, Instant.now());
-		AverdueAccount av2 = new AverdueAccount(c2, ac2, Instant.now());
+		AverdueAccount av1 = new AverdueAccount(ac3, Instant.now());
+		AverdueAccount av2 = new AverdueAccount(ac2, Instant.now());
 		
 		//For relation one to one the insertion need be so.
 		ac3.setAverdueAccount(av1);
@@ -70,6 +67,4 @@ public class PopulteDb implements CommandLineRunner{
 		
 		accountRepository.saveAll(Arrays.asList(ac3, ac2));
 	}
-	
-
 }

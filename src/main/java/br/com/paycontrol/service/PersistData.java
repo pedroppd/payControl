@@ -8,5 +8,7 @@ public interface PersistData<T>
 	
 	public T findById(Long id);
 	
-	public boolean save(T obj);
+	public T save(T obj);
+	
+	public void delete(Long id);
 }

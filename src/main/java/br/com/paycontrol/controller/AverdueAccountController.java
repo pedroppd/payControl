@@ -13,7 +13,7 @@ import br.com.paycontrol.domain.AverdueAccount;
 import br.com.paycontrol.service.AverdueAccountService;
 
 @RestController
-@RequestMapping(value = "/AverdueAverdueAccounts")
+@RequestMapping(value = "/averdueAccounts")
 public class AverdueAccountController 
 {
 	

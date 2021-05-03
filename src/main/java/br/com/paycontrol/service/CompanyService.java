@@ -32,14 +32,19 @@ public class CompanyService implements PersistData<Company>{
 	}
 
 	@Override
-	public boolean save(Company obj) 
+	public Company save(Company obj) 
 	{
 		if(obj != null) 
 		{
-			repository.save(obj);
-			return true;
+			return repository.save(obj);
 		}
 		
 		throw new IllegalArgumentException(String.format("The company '%s' is invalid", obj));
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

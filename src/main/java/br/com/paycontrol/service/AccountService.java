@@ -32,14 +32,19 @@ public class AccountService implements PersistData<Account>{
 	}
 
 	@Override
-	public boolean save(Account obj) 
+	public Account save(Account obj) 
 	{
 		if(obj != null) 
 		{
-			repository.save(obj);
-			return true;
+			return repository.save(obj);
 		}
 		
 		throw new IllegalArgumentException(String.format("The account '%s' is invalid", obj));
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

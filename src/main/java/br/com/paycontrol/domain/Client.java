@@ -12,8 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.Nullable;
 
 @Entity
 public class Client implements Serializable
@@ -27,19 +32,16 @@ public class Client implements Serializable
 	@Column(length = 11, nullable = false, unique = true)
 	private String cpf;
 	
+	@Column(nullable = false)
 	private String name;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
 	private Instant birthDate;
-	
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "client")
+	@JsonIgnore
 	private List<Account> accounts = new ArrayList<>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "client")
-	private List<AverdueAccount> averdueAccounts = new ArrayList<>();
-	
+		
 	public Client() 
 	{
 		
@@ -82,10 +84,13 @@ public class Client implements Serializable
 	{
 		return accounts;
 	}
-	
-	public List<AverdueAccount> getAverdueAccount()
-	{
-		return averdueAccounts;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override

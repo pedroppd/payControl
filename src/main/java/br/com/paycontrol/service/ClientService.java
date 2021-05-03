@@ -32,14 +32,19 @@ public class ClientService implements PersistData<Client>{
 	}
 
 	@Override
-	public boolean save(Client obj) 
+	public Client save(Client obj) 
 	{
 		if(obj != null) 
 		{
-			repository.save(obj);
-			return true;
+			return repository.save(obj);
 		}
 		
 		throw new IllegalArgumentException(String.format("The cliente '%s' is invalid", obj));
+	}
+
+	@Override
+	public void delete(Long id) 
+	{
+		repository.deleteById(id);
 	}
 }

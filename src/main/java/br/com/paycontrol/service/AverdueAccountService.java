@@ -28,18 +28,27 @@ public class AverdueAccountService implements PersistData<AverdueAccount>{
 	@Override
 	public AverdueAccount findById(Long id) 
 	{
-		return repository.findById(id).get();
+		if(repository.findById(id).isPresent()) 
+		{
+			return repository.findById(id).get();
+		}
+		return null;
 	}
 
 	@Override
-	public boolean save(AverdueAccount obj) 
+	public AverdueAccount save(AverdueAccount obj) 
 	{
 		if(obj != null) 
 		{
-			repository.save(obj);
-			return true;
+			return repository.save(obj);
 		}
 		
 		throw new IllegalArgumentException(String.format("The company '%s' is invalid", obj));
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

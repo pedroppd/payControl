@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Account implements Serializable
@@ -25,6 +26,11 @@ public class Account implements Serializable
 	
 	private String barcode;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
+	private Instant created;
+	
+	private Float price;
+	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
@@ -34,12 +40,8 @@ public class Account implements Serializable
 	private Company company;
 	
 	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private AverdueAccount averdueAccount;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT" )
-	private Instant created;
-	
-	private Float price;
 	 
 	public Account() 
 	{
