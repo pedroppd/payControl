@@ -11,4 +11,6 @@ public interface PersistData<T>
 	public T save(T obj);
 	
 	public void delete(Long id);
+	
+	public T update(Long id, T obj);
 }

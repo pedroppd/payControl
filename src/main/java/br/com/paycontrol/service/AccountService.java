@@ -47,4 +47,10 @@ public class AccountService implements PersistData<Account>{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Account update(Long id, Account obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

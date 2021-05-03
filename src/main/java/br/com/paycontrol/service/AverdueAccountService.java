@@ -51,4 +51,10 @@ public class AverdueAccountService implements PersistData<AverdueAccount>{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public AverdueAccount update(Long id, AverdueAccount obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

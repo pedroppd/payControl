@@ -47,4 +47,10 @@ public class CompanyService implements PersistData<Company>{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Company update(Long id, Company obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

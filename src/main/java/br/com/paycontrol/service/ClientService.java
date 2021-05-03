@@ -47,4 +47,19 @@ public class ClientService implements PersistData<Client>{
 	{
 		repository.deleteById(id);
 	}
+
+	@Override
+	public Client update(Long id, Client obj) 
+	{
+		Client client = repository.getOne(id);
+		return repository.save(updateData(client, obj));
+	}
+	
+	public Client updateData(Client clientForUpdate, Client clientNewDatas)
+	{
+		clientForUpdate.setBirthDate(clientNewDatas.getBirthDate());
+		clientForUpdate.setCpf(clientNewDatas.getCpf());
+		clientForUpdate.setName(clientNewDatas.getName());
+		return clientForUpdate;
+	}
 }
