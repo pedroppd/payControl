@@ -3,10 +3,12 @@ package br.com.paycontrol.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.paycontrol.domain.Client;
 import br.com.paycontrol.repository.ClientRepository;
+import br.com.paycontrol.service.exception.ResourceIntegrityViolationException;
 
 @Service
 public class ClientService implements PersistData<Client>{
@@ -45,7 +47,14 @@ public class ClientService implements PersistData<Client>{
 	@Override
 	public void delete(Long id) 
 	{
-		repository.deleteById(id);
+		try 
+		{
+			repository.deleteById(id);
+		}
+		catch(DataIntegrityViolationException e) 
+		{
+			throw new ResourceIntegrityViolationException(id);
+		}
 	}
 
 	@Override

@@ -20,61 +20,49 @@ import br.com.paycontrol.service.ClientService;
 
 @RestController
 @RequestMapping(value = "/clients")
-public class ClientController 
-{
-	
+public class ClientController {
+
 	@Autowired
 	private ClientService clientService;
 
-	
-	public ClientController() 
-	{
-		
+	public ClientController() {
+
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Client>> getClientes()
-	{
+	public ResponseEntity<List<Client>> getClientes() {
 		return ResponseEntity.ok().body(clientService.findAll());
 	}
-	
+
 	@GetMapping(value = "{id}")
-	public ResponseEntity<Client> getClientById(@PathVariable Long id)
-	{
-		if(id != null) 
-		{
+	public ResponseEntity<Client> getClientById(@PathVariable Long id) {
+		if (id != null) {
 			return ResponseEntity.ok().body(clientService.findById(id));
 		}
-		
+
 		throw new IllegalArgumentException(String.format("The %s is invalid", id));
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Client> save(@RequestBody Client client)
-	{
-		if(client != null) 
-		{
-			URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(client.getId()).toUri();
+	public ResponseEntity<Client> save(@RequestBody Client client) {
+		if (client != null) {
+			URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(client.getId())
+					.toUri();
 			return ResponseEntity.created(uri).body(client);
 		}
-		
+
 		throw new IllegalArgumentException(String.format("The %s is invalid", client));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id)
 	{
-		if(id != null) 
-		{
-			clientService.delete(id);
-			ResponseEntity.noContent().build();
-		}
-		
-		throw new IllegalArgumentException(String.format("The value '%s' cannot be null", id));
+		clientService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client)
+	public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client) 
 	{
 		Client newClient = clientService.update(id, client);
 		return ResponseEntity.ok().body(newClient);
