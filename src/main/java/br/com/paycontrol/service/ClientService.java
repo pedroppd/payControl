@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.paycontrol.domain.Client;
 import br.com.paycontrol.repository.ClientRepository;
 import br.com.paycontrol.service.exception.ResourceIntegrityViolationException;
+import br.com.paycontrol.service.exception.ResourceNoSuchElementException;
 
 @Service
 public class ClientService implements PersistData<Client>{
@@ -30,7 +31,7 @@ public class ClientService implements PersistData<Client>{
 	@Override
 	public Client findById(Long id) 
 	{
-		return repository.findById(id).get();
+		return repository.findById(id).orElseThrow(() -> new ResourceNoSuchElementException(id));
 	}
 
 	@Override

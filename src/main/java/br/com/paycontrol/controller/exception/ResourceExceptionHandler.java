@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.paycontrol.service.exception.ResourceIntegrityViolationException;
+import br.com.paycontrol.service.exception.ResourceNoSuchElementException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler 
@@ -20,6 +21,14 @@ public class ResourceExceptionHandler
 	{
 		String error = "Integrity Violation";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
+		return ResponseEntity.status(status).body(new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI()));
+	}
+	
+	@ExceptionHandler(ResourceNoSuchElementException.class)
+	public ResponseEntity<StandardError> noSuchElementException(ResourceNoSuchElementException e, HttpServletRequest request)
+	{
+		String error = "Element not exist";
+		HttpStatus status = HttpStatus.NOT_FOUND;
 		return ResponseEntity.status(status).body(new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI()));
 	}
 	
