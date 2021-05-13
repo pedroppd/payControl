@@ -4,12 +4,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.paycontrol.domain.dto.CompanyDTO;
 
 @Entity
 public class Company implements Serializable {
@@ -20,10 +24,11 @@ public class Company implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	private String cnpj;
 	
+	@Column(nullable = false)
 	private String name;
-	
 	
 	@OneToMany(mappedBy = "company")
 	private Set<Account> accounts = new HashSet<>();
@@ -31,6 +36,12 @@ public class Company implements Serializable {
 	public Company()
 	{
 		
+	}
+	
+	public Company(CompanyDTO companyDto) 
+	{
+		this.cnpj = companyDto.getCnpj();
+		this.name = companyDto.getName();
 	}
 	
 	public Company(String cnpj, String name) 

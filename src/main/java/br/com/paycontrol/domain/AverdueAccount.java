@@ -11,7 +11,6 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class AverdueAccount implements Serializable {
@@ -28,8 +27,6 @@ public class AverdueAccount implements Serializable {
 	@OneToOne
 	@MapsId
 	private Account account;
-	
-	
 	
 	public AverdueAccount() 
 	{

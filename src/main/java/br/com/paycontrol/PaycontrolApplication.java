@@ -11,3 +11,4 @@ public class PaycontrolApplication {
 		SpringApplication.run(PaycontrolApplication.class, args);
 	}
 }
+ 

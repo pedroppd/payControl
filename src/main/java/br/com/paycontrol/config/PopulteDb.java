@@ -12,7 +12,6 @@ import br.com.paycontrol.domain.AverdueAccount;
 import br.com.paycontrol.domain.Client;
 import br.com.paycontrol.domain.Company;
 import br.com.paycontrol.repository.AccountRepository;
-import br.com.paycontrol.repository.AverdueAccountRepository;
 import br.com.paycontrol.repository.ClientRepository;
 import br.com.paycontrol.repository.CompanyRepository;
 
